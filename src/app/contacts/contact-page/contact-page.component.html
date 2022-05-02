@@ -1,55 +1,102 @@
 <div class="row">
   <div class="col-md-6">
-    <form name="addContactForm" #addContactForm="ngForm">
+    <form
+      [formGroup]="contactForm"
+      (ngSubmit)="onSubmitContactDetails(contactForm.value)"
+    >
       <h1>Contact Us Form</h1>
       <div class="form-group">
         <label>First Name </label>
         <input
           type="text"
-          name="firstName"
+          formControlName="FirstName"
           class="form-control"
           placeholder="Enter first name"
-          ngModel
           required
         />
+        <div *ngFor="let validation of validationMessages.firstName">
+          <small
+            class="form-text text-danger"
+            *ngIf="
+              contactForm.get('firstName')?.hasError(validation.type) &&
+              (contactForm.get('firstName')?.dirty ||
+                contactForm.get('firstName')?.touched)
+            "
+            >{{ validation.message }}</small
+          >
+        </div>
       </div>
 
       <div class="form-group">
         <label>Last Name </label>
         <input
           type="text"
-          name="lastName"
+          formControlName="LastName"
           class="form-control"
           placeholder="Enter last name"
-          ngModel
           required
         />
+        <div *ngFor="let validation of validationMessages.lastName">
+          <small
+            class="form-text text-danger"
+            *ngIf="
+              contactForm.get('lastName')?.hasError(validation.type) &&
+              (contactForm.get('lastName')?.dirty ||
+                contactForm.get('lastName')?.touched)
+            "
+            >{{ validation.message }}</small
+          >
+        </div>
       </div>
 
       <div class="form-group">
         <label>Email: </label>
         <input
           type="email"
-          name="email"
+          formControlName="Email"
           class="form-control"
           placeholder="Enter email"
-          ngModel
           required
         />
+        <div *ngFor="let validation of validationMessages.email">
+          <small
+            class="form-text text-danger"
+            *ngIf="
+              contactForm.get('email')?.hasError(validation.type) &&
+              (contactForm.get('email')?.dirty ||
+                contactForm.get('email')?.touched)
+            "
+            >{{ validation.message }}</small
+          >
+        </div>
       </div>
 
       <div class="form-group">
         <label>Message: </label>
         <textarea
-          name="message"
+          formControlName="Message"
           rows="10"
-          ngModel
-          required
           class="form-control"
         ></textarea>
+        <div>{{ contactForm.get("contactMessage")?.value.length }} / 256</div>
+        <div *ngFor="let validation of validationMessages.contactMessasge">
+          <small
+            class="form-text text-danger"
+            *ngIf="
+              contactForm.get('contactMessasge')?.hasError(validation.type) &&
+              (contactForm.get('contactMessasge')?.dirty ||
+                contactForm.get('contactMessasge')?.touched)
+            "
+            >{{ validation.message }}</small
+          >
+        </div>
       </div>
 
-      <button class="btn btn-primary" (click)="saveNewContact(addContactForm)">
+      <button
+        class="btn btn-primary"
+        type="submit"
+        [disabled]="!contactForm.valid"
+      >
         Submit
       </button>
     </form>

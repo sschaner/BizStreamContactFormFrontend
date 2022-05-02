@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
-import { FormGroup } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  FormControl,
+} from '@angular/forms';
 import { ContactsRepositoryService } from '../contacts-repository.service';
 
 @Component({
@@ -9,44 +13,46 @@ import { ContactsRepositoryService } from '../contacts-repository.service';
   styleUrls: ['./contact-page.component.css'],
 })
 export class ContactPageComponent implements OnInit {
-  constructor(private contactsService: ContactsRepositoryService) {}
+  constructor(
+    private contactsService: ContactsRepositoryService,
+    private formBuilder: FormBuilder
+  ) {}
 
-  // contactFormGroup: FormGroup;
+  contactForm!: FormGroup;
 
-  ngOnInit(): void {}
+  validationMessages = {
+    firstName: [{ type: 'required', message: 'First name is required.' }],
+    lastName: [{ type: 'required', message: 'Last name is required.' }],
+    email: [
+      { type: 'required', message: 'Email is required.' },
+      { type: 'pattern', message: 'Enter a valid email.' },
+    ],
+    contactMessasge: [
+      { type: 'maxlength', message: 'Message must be 256 characters or less.' },
+    ],
+  };
 
-  saveNewContact(form: NgForm) {
-    let contact = form.form.value;
-    console.log(contact);
-    // this.contactsService.saveNewContact(contact);
+  ngOnInit() {
+    this.createForm();
   }
 
-  async onSubmit() {
-    // this.failureMessage = '';
-    // this.successMessage = '';
-    // this.tempUser = {};
+  createForm() {
+    this.contactForm = this.formBuilder.group({
+      FirstName: ['', Validators.required],
+      LastName: ['', Validators.required],
+      Email: new FormControl(
+        '',
+        Validators.compose([
+          Validators.required,
+          Validators.pattern('^[a-zA-Z0-9.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$'),
+        ])
+      ),
+      Message: ['', Validators.maxLength(256)],
+    });
+  }
 
-    // this.tempUser = await this.userService
-    //   .returnUserByEmail(this.userFormGroup.value.email)
-    //   .toPromise();
-
-    // if (this.tempUser === null || this.tempUser === undefined) {
-    //   this.makeNewUser = true;
-    // } else {
-    //   this.makeNewUser = false;
-    // }
-
-    // if (this.makeNewUser === true) {
-    //   let user = this.userFormGroup.value;
-    //   console.log('user being created:', user);
-    //   this.userService.saveNewUser(user);
-    //   this.successMessage =
-    //     'Success! Thanks for joining the Sunny-Trails Community. Sign in above to continue.';
-    // } else {
-    //   console.log('triggered final else statement in onsubmit method');
-    //   this.failureMessage =
-    //     'Sorry, looks like there is already a user with that email. Try another to get started!';
-    // }
-    console.log("You've submitted the form.");
+  onSubmitContactDetails(contactValue: any) {
+    console.log(contactValue);
+    this.contactsService.saveNewContact(contactValue).subscribe();
   }
 }
