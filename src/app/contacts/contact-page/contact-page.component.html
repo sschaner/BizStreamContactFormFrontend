@@ -1,1 +1,57 @@
-<p>contact-page works!</p>
+<div class="row">
+  <div class="col-md-6">
+    <form name="addContactForm" #addContactForm="ngForm">
+      <h1>Contact Us Form</h1>
+      <div class="form-group">
+        <label>First Name </label>
+        <input
+          type="text"
+          name="firstName"
+          class="form-control"
+          placeholder="Enter first name"
+          ngModel
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label>Last Name </label>
+        <input
+          type="text"
+          name="lastName"
+          class="form-control"
+          placeholder="Enter last name"
+          ngModel
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label>Email: </label>
+        <input
+          type="email"
+          name="email"
+          class="form-control"
+          placeholder="Enter email"
+          ngModel
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label>Message: </label>
+        <textarea
+          name="message"
+          rows="10"
+          ngModel
+          required
+          class="form-control"
+        ></textarea>
+      </div>
+
+      <button class="btn btn-primary" (click)="saveNewContact(addContactForm)">
+        Submit
+      </button>
+    </form>
+  </div>
+</div>

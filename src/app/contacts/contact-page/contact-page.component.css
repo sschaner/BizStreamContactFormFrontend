@@ -1,0 +1,17 @@
+.contact-form-title {
+  font-size: 2.375rem;
+  font-weight: bold;
+}
+
+.contact-form-input {
+  height: 2.25rem;
+  background: #fff;
+  border: 1px solid #0087aa;
+}
+
+.btn {
+  height: 2.25rem;
+  background: #0087aa;
+  color: #fff;
+  width: 100%;
+}
