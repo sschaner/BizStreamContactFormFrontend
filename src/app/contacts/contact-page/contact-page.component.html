@@ -1,8 +1,9 @@
-<div class="row">
+<div class="row mt-76 mb-4">
   <div class="col-md-6">
     <form
       [formGroup]="contactForm"
       (ngSubmit)="onSubmitContactDetails(contactForm.value)"
+      class="mt-3"
     >
       <h1>Contact Us Form</h1>
       <div class="form-group">
@@ -10,17 +11,16 @@
         <input
           type="text"
           formControlName="FirstName"
-          class="form-control"
+          class="form-control contact-form-input h-36"
           placeholder="Enter first name"
-          required
         />
-        <div *ngFor="let validation of validationMessages.firstName">
+        <div *ngFor="let validation of validationMessages.FirstName">
           <small
             class="form-text text-danger"
             *ngIf="
-              contactForm.get('firstName')?.hasError(validation.type) &&
-              (contactForm.get('firstName')?.dirty ||
-                contactForm.get('firstName')?.touched)
+              contactForm.get('FirstName')?.hasError(validation.type) &&
+              (contactForm.get('FirstName')?.dirty ||
+                contactForm.get('FirstName')?.touched)
             "
             >{{ validation.message }}</small
           >
@@ -32,17 +32,16 @@
         <input
           type="text"
           formControlName="LastName"
-          class="form-control"
+          class="form-control contact-form-input h-36"
           placeholder="Enter last name"
-          required
         />
-        <div *ngFor="let validation of validationMessages.lastName">
+        <div *ngFor="let validation of validationMessages.LastName">
           <small
             class="form-text text-danger"
             *ngIf="
-              contactForm.get('lastName')?.hasError(validation.type) &&
-              (contactForm.get('lastName')?.dirty ||
-                contactForm.get('lastName')?.touched)
+              contactForm.get('LastName')?.hasError(validation.type) &&
+              (contactForm.get('LastName')?.dirty ||
+                contactForm.get('LastName')?.touched)
             "
             >{{ validation.message }}</small
           >
@@ -54,17 +53,16 @@
         <input
           type="email"
           formControlName="Email"
-          class="form-control"
+          class="form-control contact-form-input h-36"
           placeholder="Enter email"
-          required
         />
-        <div *ngFor="let validation of validationMessages.email">
+        <div *ngFor="let validation of validationMessages.Email">
           <small
             class="form-text text-danger"
             *ngIf="
-              contactForm.get('email')?.hasError(validation.type) &&
-              (contactForm.get('email')?.dirty ||
-                contactForm.get('email')?.touched)
+              contactForm.get('Email')?.hasError(validation.type) &&
+              (contactForm.get('Email')?.dirty ||
+                contactForm.get('Email')?.touched)
             "
             >{{ validation.message }}</small
           >
@@ -76,16 +74,16 @@
         <textarea
           formControlName="Message"
           rows="10"
-          class="form-control"
+          class="form-control contact-form-input"
         ></textarea>
-        <div>{{ contactForm.get("contactMessage")?.value.length }} / 256</div>
-        <div *ngFor="let validation of validationMessages.contactMessasge">
+        <div>{{ contactForm.get("Message")?.value.length }} / 250</div>
+        <div *ngFor="let validation of validationMessages.Message">
           <small
             class="form-text text-danger"
             *ngIf="
-              contactForm.get('contactMessasge')?.hasError(validation.type) &&
-              (contactForm.get('contactMessasge')?.dirty ||
-                contactForm.get('contactMessasge')?.touched)
+              contactForm.get('Message')?.hasError(validation.type) &&
+              (contactForm.get('Message')?.dirty ||
+                contactForm.get('Message')?.touched)
             "
             >{{ validation.message }}</small
           >

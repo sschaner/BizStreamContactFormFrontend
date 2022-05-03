@@ -6,6 +6,10 @@
   color: rgba(0, 196, 233, 0.55);
 }
 
+.navbar {
+  background: #003d78;
+}
+
 .navbar-brand {
   height: 40px;
 }

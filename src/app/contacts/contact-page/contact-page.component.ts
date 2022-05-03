@@ -21,14 +21,27 @@ export class ContactPageComponent implements OnInit {
   contactForm!: FormGroup;
 
   validationMessages = {
-    firstName: [{ type: 'required', message: 'First name is required.' }],
-    lastName: [{ type: 'required', message: 'Last name is required.' }],
-    email: [
+    FirstName: [
+      { type: 'required', message: 'First name is required.' },
+      {
+        type: 'maxlength',
+        message: 'First name must be 100 characters or less.',
+      },
+    ],
+    LastName: [
+      { type: 'required', message: 'Last name is required.' },
+      {
+        type: 'maxlength',
+        message: 'Last name must be 100 characters or less.',
+      },
+    ],
+    Email: [
       { type: 'required', message: 'Email is required.' },
       { type: 'pattern', message: 'Enter a valid email.' },
     ],
-    contactMessasge: [
-      { type: 'maxlength', message: 'Message must be 256 characters or less.' },
+    Message: [
+      { type: 'required', message: 'Please enter a message.' },
+      { type: 'maxlength', message: 'Message must be 250 characters or less.' },
     ],
   };
 
@@ -38,8 +51,14 @@ export class ContactPageComponent implements OnInit {
 
   createForm() {
     this.contactForm = this.formBuilder.group({
-      FirstName: ['', Validators.required],
-      LastName: ['', Validators.required],
+      FirstName: [
+        '',
+        Validators.compose([Validators.required, Validators.maxLength(100)]),
+      ],
+      LastName: [
+        '',
+        Validators.compose([Validators.required, Validators.maxLength(100)]),
+      ],
       Email: new FormControl(
         '',
         Validators.compose([
@@ -47,12 +66,15 @@ export class ContactPageComponent implements OnInit {
           Validators.pattern('^[a-zA-Z0-9.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$'),
         ])
       ),
-      Message: ['', Validators.maxLength(256)],
+      Message: [
+        '',
+        Validators.compose([Validators.required, Validators.maxLength(250)]),
+      ],
     });
   }
 
   onSubmitContactDetails(contactValue: any) {
-    console.log(contactValue);
     this.contactsService.saveNewContact(contactValue).subscribe();
+    this.createForm();
   }
 }

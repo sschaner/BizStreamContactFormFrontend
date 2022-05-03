@@ -4,9 +4,17 @@
 }
 
 .contact-form-input {
-  height: 2.25rem;
   background: #fff;
   border: 1px solid #0087aa;
+}
+
+h1 {
+  font-size: 2.375rem;
+  font-weight: bold;
+}
+
+.h-36 {
+  height: 2.25rem;
 }
 
 .btn {
@@ -14,4 +22,13 @@
   background: #0087aa;
   color: #fff;
   width: 100%;
+}
+.btn:hover {
+  border-color: #1997b7;
+  background-color: #1997b7;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  pointer-events: all !important;
 }
